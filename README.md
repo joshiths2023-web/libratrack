@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # LibraTrack - Library Management System
 
 Software Metrics (ISWE402L) project, VIT. Team: Anubhav B (23MIS0457), Joshith S (23MIS0635).
@@ -46,3 +47,6 @@ See [docs/SONARCLOUD_GUIDE.md](docs/SONARCLOUD_GUIDE.md) for SonarQube Cloud set
 12 metrics comes from, and the custom OFRD and RFCI definitions.
 `python3 scripts/metrics_extra.py` computes Halstead, Maintainability Index, comment density and OFRD locally.
 The RFCI counters are readable as JSON at `/api/rfci` while the app runs; the library UI itself contains no metrics screens.
+=======
+# libratrack
+>>>>>>> 1b0983e12dd67a0ce8517217c6421578e3ca4059
