@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LibraTrack — Library Management System</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23fbb024'/%3E%3Cpath d='M7 9h7a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H7zM25 9h-7a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h7z' fill='%230a0f1f'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#090e1d;--bg2:#101833;--surf:rgba(255,255,255,.045);--surf2:rgba(255,255,255,.08);--line:rgba(255,255,255,.1);--ink:#eef2ff;--mut:#97a3c4;
+--amber:#fbb024;--orange:#f97316;--teal:#2dd4bf;--violet:#a78bfa;--rose:#fb7185;--sky:#38bdf8;--green:#4ade80;--r:16px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font:14.5px/1.5 Poppins,system-ui,"Segoe UI",Roboto,sans-serif;min-height:100vh;
+background:radial-gradient(900px 500px at 85% -5%,rgba(167,139,250,.22),transparent 60%),radial-gradient(800px 500px at 0% 10%,rgba(45,212,191,.13),transparent 60%),radial-gradient(900px 600px at 50% 110%,rgba(249,115,22,.14),transparent 60%),var(--bg);background-attachment:fixed}
+svg.i{width:1.15em;height:1.15em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-.2em}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+header{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:rgba(9,14,29,.78);border-bottom:1px solid var(--line)}
+.bar{max-width:1240px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:space-between}
+.logo{display:flex;gap:11px;align-items:center}
+.logo .mk{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--amber),var(--orange));color:#1a1204;font-size:22px;box-shadow:0 6px 20px rgba(249,115,22,.4)}
+.logo h1{margin:0;font:800 21px/1 Poppins;letter-spacing:-.3px}.logo h1 span{color:var(--amber)}
+.logo small{display:block;color:var(--mut);font-size:11px;margin-top:3px}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav button{background:none;border:0;padding:9px 14px;border-radius:10px;color:var(--mut);cursor:pointer;display:flex;gap:8px;align-items:center;font-weight:500;position:relative;transition:.2s}
+nav button:hover{color:var(--ink);background:var(--surf)}
+nav button.active{color:var(--amber);background:rgba(251,176,36,.1)}
+nav button.active:after{content:"";position:absolute;left:14px;right:14px;bottom:-13px;height:3px;border-radius:3px;background:var(--amber)}
+.clock{display:flex;gap:7px;align-items:center;flex-wrap:wrap;background:var(--surf);border:1px solid var(--line);padding:6px 8px 6px 12px;border-radius:14px;font-variant-numeric:tabular-nums}
+.clock .t{display:flex;gap:7px;align-items:center;color:var(--amber);font-size:13px}.clock b{color:var(--ink);font-weight:600}
+.chip{border:1px solid var(--line);background:var(--surf2);padding:4px 10px;border-radius:99px;font-size:12px;cursor:pointer;display:inline-flex;gap:4px;align-items:center;transition:.2s}
+.chip:hover{border-color:var(--amber);color:var(--amber)}
+main{max-width:1240px;margin:0 auto;padding:0 24px 70px}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center;padding:42px 0 26px}
+.eyebrow{color:var(--amber);font-weight:600;font-size:12px;letter-spacing:.14em;display:flex;gap:10px;align-items:center}.eyebrow:before{content:"";width:34px;height:2px;background:var(--amber)}
+.hero h2{font:800 clamp(34px,5vw,56px)/1.08 Poppins;margin:14px 0 12px;letter-spacing:-1.2px}
+.hero h2 em{font-style:normal;background:linear-gradient(90deg,var(--amber),var(--orange) 55%,var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mut);max-width:46ch;margin:0 0 18px;font-size:15.5px}
+.script{font:600 27px/1.1 Caveat,cursive;color:var(--teal);transform:rotate(-3deg);display:inline-block;margin-top:6px}
+.art{position:relative}.art svg{width:100%;height:auto;max-height:330px;filter:drop-shadow(0 20px 40px rgba(0,0,0,.45))}
+@media(prefers-reduced-motion:no-preference){.float{animation:fl 6s ease-in-out infinite}@keyframes fl{50%{transform:translateY(-8px)}}}
+.glass{background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.03));border:1px solid var(--line);border-radius:20px;padding:16px 18px;backdrop-filter:blur(10px);box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.actor{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.actor label{display:flex;gap:8px;align-items:center;color:var(--mut);font-weight:500}.actor label svg{color:var(--amber)}
+select,input{padding:9px 12px;border:1px solid var(--line);border-radius:11px;background:rgba(9,14,29,.7)}
+select option{background:#101833}
+input::placeholder{color:#6f7ba0}
+.pill{display:inline-flex;gap:6px;align-items:center;padding:4px 11px;border-radius:99px;font-size:12.5px;font-weight:500;background:var(--surf2);border:1px solid var(--line)}
+.pill.s{color:var(--sky)}.pill.v{color:var(--violet)}.pill.a{color:var(--amber)}.pill.r{color:var(--rose)}.pill.g{color:var(--green)}
+.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:6px 0 22px}
+.feat{display:flex;gap:12px;align-items:center;padding:14px;border-radius:var(--r);background:var(--surf);border:1px solid var(--line)}
+.feat b{display:block;font-size:13.5px}.feat span{color:var(--mut);font-size:12px}
+.ico{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:20px;flex:none;color:var(--c);background:color-mix(in srgb,var(--c) 16%,transparent);border:1px solid color-mix(in srgb,var(--c) 30%,transparent)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:22px}
+.stat{position:relative;overflow:hidden;padding:15px 16px;border-radius:var(--r);background:var(--surf);border:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.stat:before{content:"";position:absolute;inset:auto -20px -30px auto;width:90px;height:90px;border-radius:50%;background:var(--c);opacity:.14;filter:blur(6px)}
+.stat .k{color:var(--mut);font-size:12px}.stat .v{font:700 26px/1.25 Poppins}
+.sec{display:flex;align-items:center;gap:10px;margin:4px 0 14px}.sec h3{margin:0;font:700 19px Poppins}.sec .ico{width:34px;height:34px;font-size:17px;border-radius:10px}
+.sec .sp{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.toolbar{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.sbox{flex:1;min-width:220px;position:relative}.sbox svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--amber)}.sbox input{width:100%;padding-left:40px;height:44px;border-radius:14px}
+.mut,.muted{color:var(--mut)}
+.books{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:16px}
+.book{background:var(--surf);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:.25s}
+.book:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--c) 55%,transparent);box-shadow:0 14px 34px rgba(0,0,0,.4)}
+.cover{height:96px;padding:14px 16px;display:flex;justify-content:space-between;align-items:flex-start;background:linear-gradient(135deg,color-mix(in srgb,var(--c) 70%,#000),color-mix(in srgb,var(--c) 25%,#0a0f1f));position:relative;overflow:hidden}
+.cover .big{position:absolute;right:-8px;bottom:-18px;font-size:92px;opacity:.16;color:#fff}.cover .big svg{width:1em;height:1em}
+.bb{padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px;flex:1}
+.bb h4{margin:0;font:600 16px/1.3 Poppins}.bb .au{color:var(--mut);font-size:13px;display:flex;gap:6px;align-items:center}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12.5px}
+.meta div{background:rgba(255,255,255,.04);border-radius:10px;padding:7px 10px;display:flex;gap:7px;align-items:center;color:var(--mut)}.meta svg{color:var(--c)}.meta b{color:var(--ink);font-weight:600}
+.acts{display:flex;gap:8px;margin-top:auto}
+.btn{border:0;cursor:pointer;display:inline-flex;gap:7px;align-items:center;justify-content:center;padding:8px 15px;border-radius:11px;font-weight:600;color:#1a1204;background:linear-gradient(135deg,var(--amber),var(--orange));box-shadow:0 6px 16px rgba(249,115,22,.28);transition:.2s}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--amber);border:1px solid rgba(251,176,36,.55);box-shadow:none}.btn.ghost:hover{background:rgba(251,176,36,.1)}
+.btn.teal{background:linear-gradient(135deg,var(--teal),#0ea5e9);box-shadow:0 6px 16px rgba(14,165,233,.28)}
+.btn.small{padding:6px 12px;font-size:13px}.acts .btn{flex:1}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.tag{display:inline-flex;gap:5px;align-items:center;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:600;background:var(--surf2);color:var(--mut)}
+.tag.ok{background:rgba(74,222,128,.14);color:var(--green)}.tag.warn{background:rgba(251,176,36,.15);color:var(--amber)}.tag.bad{background:rgba(251,113,133,.15);color:var(--rose)}
+.tag.cat{background:rgba(255,255,255,.18);color:#fff;backdrop-filter:blur(4px)}
+.panel{background:var(--surf);border:1px solid var(--line);border-radius:18px;overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--amber);font-weight:600;background:rgba(251,176,36,.06);white-space:nowrap}
+tbody tr{transition:.15s}tbody tr:hover{background:rgba(255,255,255,.035)}tr:last-child td{border-bottom:0}
+.who{display:flex;gap:10px;align-items:center}.av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:14px;color:#10131f;background:var(--c);flex:none}
+input[type=checkbox]{width:18px;height:18px;accent-color:var(--amber);padding:0}
+.empty{padding:38px;text-align:center;color:var(--mut)}.empty svg{display:block;margin:0 auto 10px;font-size:34px;color:var(--amber);opacity:.8}
+.note{display:flex;gap:10px;align-items:center;padding:11px 14px;border-radius:14px;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.25);color:#b9e6fb;margin-bottom:14px;font-size:13.5px}.note svg{color:var(--sky);font-size:18px}
+.pos{width:34px;height:34px;border-radius:10px;display:inline-grid;place-items:center;font-weight:700;background:rgba(251,176,36,.14);color:var(--amber)}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);max-width:92vw;padding:13px 18px;border-radius:14px;font-weight:500;box-shadow:0 12px 40px rgba(0,0,0,.5);display:none;z-index:50;gap:10px;align-items:center;backdrop-filter:blur(12px)}
+#toast.ok{background:rgba(10,45,30,.92);color:var(--green);border:1px solid var(--green)}#toast.bad{background:rgba(60,15,25,.92);color:var(--rose);border:1px solid var(--rose)}
+footer{text-align:center;color:var(--mut);font-size:12.5px;padding:10px 0 26px}
+@media(max-width:860px){.hero{grid-template-columns:1fr}.art{display:none}.bar{padding:10px 14px}main{padding:0 14px 60px}nav button.active:after{display:none}}
+</style>
+</head>
+<body>
+<header><div class="bar">
+  <div class="logo"><div class="mk" id="lg"></div><div><h1>Libra<span>Track</span></h1><small>Library Management System</small></div></div>
+  <nav id="tabs"></nav>
+  <div class="clock"><span class="t" id="clk"></span><span>Library time: <b id="now">-</b></span>
+    <button class="chip" onclick="clock({hours:1})">+1 hour</button><button class="chip" onclick="clock({days:1})">+1 day</button>
+    <button class="chip" onclick="clock({days:7})">+7 days</button><button class="chip" onclick="clock({days:30})">+30 days</button></div>
+</div></header>
+<main>
+  <section class="hero">
+    <div>
+      <div class="eyebrow">BROWSE · BORROW · RETURN</div>
+      <h2>Your next great read <em>starts here.</em></h2>
+      <p>Search the catalogue, issue and return books, reserve what's checked out and settle fines, all in one place.</p>
+      <div class="glass actor"><label for="actor" id="al"></label><select id="actor" onchange="actorChanged()"></select><span id="actorInfo"></span></div>
+      <div class="script">Read more. Learn more.</div>
+    </div>
+    <div class="art float" id="art"></div>
+  </section>
+  <div class="feats" id="feats"></div>
+  <div class="stats" id="stats"></div>
+  <section id="view"></section>
+</main>
+<footer>LibraTrack · Software Metrics (ISWE402L) · Anubhav B &amp; Joshith S</footer>
+<div id="toast"></div>
+
+<script>
+const P={book:'<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+search:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+user:'<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/>',
+userplus:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/>',
+bookmark:'<path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>',
+rupee:'<path d="M6 3h12M6 8h12M6 13h3m0 0c6.7 0 6.7-10 0-10M6 13l8.5 8"/>',check:'<path d="M20 6 9 17l-5-5"/>',
+shield:'<path d="M20 13c0 5-3.5 7.5-7.7 9a1 1 0 0 1-.7 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1.2 1.2 0 0 1 1.5 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>',
+crown:'<path d="m2 4 3 12h14l3-12-6 7-4-7-4 7z"/><path d="M5 20h14"/>',undo:'<path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>',
+x:'<path d="M18 6 6 18M6 6l12 12"/>',lib:'<path d="m16 6 4 14M12 6v14M8 8v12M4 4v16"/>',layers:'<path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/>',
+cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',star:'<path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.800L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/>',
+zap:'<path d="M13 2 3 14h9l-1 8 10-12h-9z"/>',alert:'<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/>',
+pen:'<path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',tag:'<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8zM7 7h.01"/>',
+info:'<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',wallet:'<path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>'};
+const ic=n=>`<svg class="i" viewBox="0 0 24 24">${P[n]}</svg>`;
+const CAT={FICTION:['var(--violet)','star'],TEXTBOOK:['var(--sky)','book'],JOURNAL:['var(--teal)','layers'],REFERENCE:['var(--rose)','lib']};
+const TIER={BASIC:['s','user'],PREMIUM:['v','star'],VIP:['a','crown']};
+const COL=['var(--amber)','var(--teal)','var(--violet)','var(--rose)','var(--sky)','var(--green)'];
+const tier=t=>`<span class="pill ${TIER[t]?.[0]||''}">${ic(TIER[t]?.[1]||'user')}${t}</span>`;
+const TABS=[['catalog','Catalogue','book'],['loans','Loans & returns','layers'],['reservations','Reservations','bookmark'],['fines','Fines','rupee'],['members','Members','users']];
+let S=null,tab='catalog',actorId=null,query='';
+
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money=n=>'₹'+Number(n).toFixed(2);
+const when=s=>String(s).replace('T',' ').slice(0,16);
+const avatar=m=>`<div class="who"><div class="av" style="--c:${COL[m.id%COL.length]}">${esc((m.name||'?')[0].toUpperCase())}</div><b>${esc(m.name)}</b></div>`;
+const sec=(i,t,c)=>`<div class="sec"><div class="ico" style="--c:${c}">${ic(i)}</div><h3>${t}</h3><div class="sp"></div></div>`;
+
+async function api(path,data){
+  const opt=data?{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(data)}:{};
+  const r=await fetch(path,opt);return r.json();
+}
+async function refresh(){S=await api('/api/state');if(actorId===null&&S.members.length)actorId=S.members[0].id;render();}
+async function act(path,data){const r=await api(path,data);toast(r.message,r.ok);await refresh();}
+const clock=d=>act('/api/clock',d);
+let toastTimer;
+function toast(msg,ok){
+  const t=document.getElementById('toast');
+  t.innerHTML=ic(ok?'check':'alert')+'<span>'+esc(msg)+'</span>';t.className=ok?'ok':'bad';t.style.display='flex';
+  clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.style.display='none',5200);
+}
+function actorChanged(){actorId=Number(document.getElementById('actor').value);render();}
+function setTab(t){tab=t;render();}
+function onSearch(v){query=v;render();const el=document.getElementById('q');el.focus();el.setSelectionRange(v.length,v.length);}
+const actor=()=>S.members.find(m=>m.id===actorId);
+
+function shelf(){
+  const bk=[[22,120,'#fb7185'],[26,150,'#fbb024'],[20,110,'#2dd4bf'],[28,165,'#a78bfa'],[22,135,'#38bdf8'],[26,118,'#f97316'],[20,150,'#4ade80']];
+  let x=60,s='';bk.forEach(([w,h,c],i)=>{s+=`<g transform="translate(${x},${250-h}) ${i==3?'rotate(0)':''}"><rect width="${w}" height="${h}" rx="3" fill="${c}"/><rect x="3" y="12" width="${w-6}" height="4" rx="2" fill="#0a0f1f" opacity=".35"/><rect x="3" y="${h-22}" width="${w-6}" height="3" rx="1.500" fill="#0a0f1f" opacity=".25"/></g>`;x+=w+4;});
+  return `<svg viewBox="0 0 440 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gm" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fde68a"/><stop offset="1" stop-color="#f97316"/></linearGradient><linearGradient id="sf" x1="0" x2="1"><stop stop-color="#fbb024"/><stop offset="1" stop-color="#f97316"/></linearGradient></defs>
+  <circle cx="330" cy="88" r="48" fill="url(#gm)" opacity=".95"/><circle cx="330" cy="88" r="74" fill="#fbb024" opacity=".12"/>
+  <g fill="#fff" opacity=".8"><circle cx="70" cy="50" r="2"/><circle cx="150" cy="30" r="1.500"/><circle cx="210" cy="70" r="2"/><circle cx="410" cy="40" r="1.500"/><circle cx="40" cy="120" r="1.500"/></g>
+  <path d="M0 215 90 150 170 205 250 140 330 200 440 130V300H0z" fill="#1b2650" opacity=".7"/>
+  ${s}<g transform="translate(262,152) rotate(14 40 50)"><rect width="84" height="98" rx="5" fill="#a78bfa"/><rect x="8" y="10" width="68" height="10" rx="3" fill="#fff" opacity=".85"/><rect x="8" y="26" width="46" height="6" rx="3" fill="#fff" opacity=".5"/></g>
+  <rect x="40" y="250" width="360" height="14" rx="7" fill="url(#sf)"/><rect x="60" y="264" width="12" height="26" rx="3" fill="#7c3a0a"/><rect x="368" y="264" width="12" height="26" rx="3" fill="#7c3a0a"/>
+  <g transform="translate(130,70)"><path d="M0 40c0-14 12-24 30-24s30 10 30 24c0 6-4 10-10 10H10C4 50 0 46 0 40z" fill="#fff" opacity=".12"/><path d="M0 24 30 10 60 24 30 38z" fill="#fbb024"/><path d="M12 30v10c0 6 36 6 36 0V30" fill="#f97316"/><path d="M60 24v22" stroke="#fbb024" stroke-width="3"/></g></svg>`;
+}
+function chrome(){
+  document.getElementById('lg').innerHTML=ic('book');document.getElementById('clk').innerHTML=ic('clock');document.getElementById('al').innerHTML=ic('user')+' Acting as member';
+  document.getElementById('art').innerHTML=shelf();
+  document.getElementById('feats').innerHTML=[['rupee','Dynamic fines','Category rates, grace days & waivers','var(--amber)'],['shield','Smart issue checks','Hours, limits & unpaid fines','var(--teal)'],['bookmark','Priority holds','VIP, Premium, then Basic','var(--violet)'],['crown','Member tiers','Higher limits & longer grace','var(--rose)']]
+  .map(([i,t,d,c])=>`<div class="feat"><div class="ico" style="--c:${c}">${ic(i)}</div><div><b>${t}</b><span>${d}</span></div></div>`).join('');
+}
+function stats(){
+  const copies=S.books.reduce((a,b)=>a+b.available,0),over=S.loans.filter(l=>l.overdue).length,unpaid=S.fines.filter(f=>!f.paid).reduce((a,f)=>a+f.net,0);
+  document.getElementById('stats').innerHTML=[['book','Titles',S.books.length,'var(--violet)'],['check','Copies in',copies,'var(--green)'],['layers','Active loans',S.loans.length,'var(--sky)'],['alert','Overdue',over,'var(--rose)'],['bookmark','Reservations',S.reservations.length,'var(--teal)'],['rupee','Unpaid fines',money(unpaid),'var(--amber)']]
+  .map(([i,k,v,c])=>`<div class="stat" style="--c:${c}"><div><div class="k">${k}</div><div class="v">${v}</div></div><div class="ico" style="--c:${c}">${ic(i)}</div></div>`).join('');
+}
+function render(){
+  if(!document.getElementById('lg').innerHTML)chrome();
+  const d=new Date(S.now);
+  document.getElementById('now').textContent=when(S.now)+' ('+d.toLocaleDateString('en-US',{weekday:'short'})+')';
+  document.getElementById('tabs').innerHTML=TABS.map(([k,l,i])=>`<button class="${k===tab?'active':''}" onclick="setTab('${k}')">${ic(i)}${l}</button>`).join('');
+  document.getElementById('actor').innerHTML=S.members.map(m=>`<option value="${m.id}" ${m.id===actorId?'selected':''}>${esc(m.name)} (${m.tier})</option>`).join('');
+  const a=actor();
+  document.getElementById('actorInfo').innerHTML=a?`<span class="pill s">${ic('layers')}${a.loans}/${a.limit} loans</span> <span class="pill g">${ic('clock')}grace ${a.graceDays}d</span> <span class="pill ${a.unpaid>0?'r':'a'}">${ic('rupee')}unpaid ${money(a.unpaid)}</span>`:'';
+  stats();
+  document.getElementById('view').innerHTML={catalog,loans,reservations,fines,members}[tab]();
+}
+
+function catalog(){
+  const q=query.toLowerCase();
+  const rows=S.books.filter(b=>!q||(b.title+b.author+b.category).toLowerCase().includes(q));
+  return sec('book','Catalogue','var(--violet)')+`<div class="toolbar"><div class="sbox">${ic('search')}<input id="q" type="search" placeholder="Search title, author or category" value="${esc(query)}" oninput="onSearch(this.value)"></div></div>`+
+  `<div class="books">`+(rows.map(b=>{const [c,i]=CAT[b.category]||['var(--amber)','book'];return `<article class="book" style="--c:${c}">
+    <div class="cover"><span class="tag cat">${ic(i)}${b.category}</span>${b.available>0?`<span class="tag ok">${ic('check')}${b.available}/${b.total} in</span>`:`<span class="tag bad">${ic('x')}All out</span>`}<div class="big">${ic(i)}</div></div>
+    <div class="bb"><div><h4>${esc(b.title)}</h4><div class="au">${ic('pen')}${esc(b.author)}</div></div>
+    <div class="meta"><div>${ic('cal')}<span><b>${b.loanDays}</b> days</span></div><div>${ic('rupee')}<span><b>${money(b.finePerDay)}</b>/day late</span></div>
+      <div style="grid-column:1/-1">${ic('clock')}<span>Issue window <b>${b.window}</b></span></div></div>
+    ${b.queue?`<div><span class="tag warn">${ic('bookmark')}${b.queue} on hold</span></div>`:''}
+    <div class="acts"><button class="btn small" onclick="act('/api/issue',{memberId:actorId,bookId:${b.id}})">${ic('check')}Issue</button>
+    <button class="btn small ghost" onclick="act('/api/reserve',{memberId:actorId,bookId:${b.id}})">${ic('bookmark')}Reserve</button></div></div></article>`}).join('')
+    ||`<div class="panel empty" style="grid-column:1/-1">${ic('search')}No books match.</div>`)+`</div>`;
+}
+
+function loans(){
+  const mine=S.loans.filter(l=>l.memberId===actorId);
+  const body=mine.length?mine.map(l=>`<tr>
+    <td><input type="checkbox" class="ret" value="${l.id}"></td>
+    <td><div class="who"><div class="ico" style="--c:var(--sky);width:34px;height:34px;font-size:16px">${ic('book')}</div><b>${esc(l.book)}</b></div></td><td>${when(l.issuedAt)}</td><td>${l.due}</td>
+    <td>${l.overdue?`<span class="tag bad">${ic('alert')}Overdue</span>`:`<span class="tag ok">${ic('check')}On time</span>`}</td>
+    <td>${l.projectedFine>0?`<b style="color:var(--amber)">${money(l.projectedFine)}</b> <span class="muted">(${l.projectedDays} chargeable days)</span>`:'<span class="muted">-</span>'}</td></tr>`).join('')
+    :`<tr><td colspan="6" class="empty">${ic('book')}${esc(actor()?.name)} has no active loans.</td></tr>`;
+  return sec('layers','Loans & returns','var(--sky)')+`<div class="toolbar"><button class="btn teal" onclick="returnSelected()">${ic('undo')}Return selected</button>
+    <span class="muted">Tick three or more books to return together and earn the bulk-return waiver on overdue ones.</span></div>
+    <div class="panel"><table><thead><tr><th></th><th>Book</th><th>Issued</th><th>Due</th><th>Status</th><th>Fine if returned now</th></tr></thead><tbody>${body}</tbody></table></div>`;
+}
+function returnSelected(){
+  const ids=[...document.querySelectorAll('.ret:checked')].map(c=>c.value).join(',');
+  act('/api/return',{ids});
+}
+
+function reservations(){
+  const body=S.reservations.length?S.reservations.sort((x,y)=>x.book.localeCompare(y.book)||x.position-y.position).map(r=>`<tr>
+    <td><div class="who"><div class="ico" style="--c:var(--teal);width:34px;height:34px;font-size:16px">${ic('bookmark')}</div><b>${esc(r.book)}</b></div></td><td><span class="pos">#${r.position}</span></td><td>${esc(r.member)}</td><td>${tier(r.tier)}</td><td>${when(r.requestedAt)}</td>
+    <td><button class="btn small ghost" onclick="act('/api/cancel',{id:${r.id}})">${ic('x')}Cancel</button></td></tr>`).join('')
+    :`<tr><td colspan="6" class="empty">${ic('bookmark')}No active reservations. Issue a single-copy book to someone, then reserve it with two members of different tiers.</td></tr>`;
+  return sec('bookmark','Reservations','var(--teal)')+`<div class="note">${ic('info')}The queue is ordered by membership tier first (VIP, then PREMIUM, then BASIC), then by request time.</div>
+    <div class="panel"><table><thead><tr><th>Book</th><th>Queue</th><th>Member</th><th>Tier</th><th>Requested</th><th></th></tr></thead><tbody>${body}</tbody></table></div>`;
+}
+
+function fines(){
+  const body=S.fines.length?S.fines.map(f=>`<tr>
+    <td><span class="pos">#${f.id}</span></td><td>${esc(f.member)}</td><td>${f.days}</td><td>${money(f.gross)}</td>
+    <td><span class="tag warn">${ic('tag')}${f.waiver}%</span><br><span class="muted">${esc(f.waiverDetails)}</span></td><td><b style="color:var(--amber);font-size:16px">${money(f.net)}</b></td>
+    <td>${f.paid?`<span class="tag ok">${ic('check')}Paid</span>`:`<button class="btn small" onclick="act('/api/pay',{id:${f.id}})">${ic('wallet')}Pay</button>`}</td></tr>`).join('')
+    :`<tr><td colspan="7" class="empty">${ic('rupee')}No fines yet. Issue a book, advance the clock past its due date, then return it.</td></tr>`;
+  return sec('rupee','Fines','var(--amber)')+`<div class="panel"><table><thead><tr><th>Fine</th><th>Member</th><th>Chargeable days</th><th>Gross</th><th>Waivers</th><th>Net</th><th></th></tr></thead><tbody>${body}</tbody></table></div>`;
+}
+
+function members(){
+  return sec('users','Members','var(--rose)')+`<div class="glass toolbar" style="padding:12px 14px">${ic('userplus')}<input id="newName" placeholder="New member name">
+    <select id="newTier"><option>BASIC</option><option>PREMIUM</option><option>VIP</option></select>
+    <button class="btn" onclick="act('/api/member',{name:document.getElementById('newName').value,tier:document.getElementById('newTier').value})">${ic('userplus')}Register</button></div>
+  <div class="panel"><table><thead><tr><th>Member</th><th>Tier</th><th>Loans</th><th>Late returns</th><th>Unpaid fines</th></tr></thead><tbody>`+
+  S.members.map(m=>`<tr><td>${avatar(m)}</td><td>${tier(m.tier)}</td><td>${m.loans}/${m.limit}</td><td>${m.lateReturns}</td><td>${m.unpaid>0?`<b style="color:var(--rose)">${money(m.unpaid)}</b>`:money(m.unpaid)}</td></tr>`).join('')+`</tbody></table></div>`;
+}
+refresh();
+</script>
+</body>
+</html>
